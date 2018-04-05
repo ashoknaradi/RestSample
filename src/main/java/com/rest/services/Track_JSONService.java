@@ -24,10 +24,11 @@ public class Track_JSONService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTrackDetails(@QueryParam("trackName") String trackName) {
 		try {
-			System.out.println("Requested track is : " + trackName);
+			System.out.println("Requested Track Name is : " + trackName);
 			Track track = new Track();
 			track.setTrackSinger("DSP");
-			track.setTrackTitle("Rangasthalam");
+			track.setTrackAlbum("Rangasthalam");
+			track.setTrackTitle(trackName);
 			// get track name object based on trackName
 			return Response.status(200).entity(track).build();
 		} catch (Exception e) {
@@ -42,7 +43,7 @@ public class Track_JSONService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response registerTrackForAlbum(Track track) {
 		try {
-			if (track.getTrackTitle() != null || track.getTrackSinger() != null) {
+			if (track.getTrackTitle() != null && track.getTrackSinger() != null) {
 				track.setTrackStatus("Track is Registered!.....");
 				System.out.println("Track Status is ::: " + track.getTrackStatus());
 				// Database hit to update table.

@@ -1,6 +1,7 @@
 package com.rest.pojo;
 
 public class Track {
+	private String trackAlbum;
 	private String trackTitle;
 	private String trackSinger;
 	private String trackStatus = "Not Registered";
@@ -27,6 +28,14 @@ public class Track {
 
 	public void setTrackStatus(String trackStatus) {
 		this.trackStatus = trackStatus;
+	}
+
+	public String getTrackAlbum() {
+		return trackAlbum;
+	}
+
+	public void setTrackAlbum(String trackAlbum) {
+		this.trackAlbum = trackAlbum;
 	}
 
 }
