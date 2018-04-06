@@ -66,20 +66,21 @@ public class Track_JSONService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response registerTrackForAlbum(Track track) {
 		try {
-			if (track.getTrackTitle() != null && track.getTrackSinger() != null && track.getTrackAlbum() != null) {
+			if ((track.getTrackTitle() != null && track.getTrackSinger() != null && track.getTrackAlbum() != null) && 
+				(track.getTrackTitle() != "" && track.getTrackSinger() != "" && track.getTrackAlbum() != ""))  {
 				track.setTrackStatus("Registered");
 				System.out.println("Track Status is ::: " + track.getTrackStatus());
-				// Database hit to update table.
+				// Dao object.. save track object into Database.
+				IntTrackDao itd = new TrackDao();
+				itd.registerTrackForAlbum(track);
+				return Response.status(200).entity(track).build();
 			} else { 
 				System.out.println("Track is not registered!.... ");
+				return Response.status(500).entity("Provide valid track details").build();
 			}
-			// Dao object.. save track object into Database.
-			IntTrackDao itd = new TrackDao();
-			itd.registerTrackForAlbum(track);
-			return Response.status(200).entity(track).build();
 		} catch (Exception e) {
 			System.out.println("Track registration failed");
-			return Response.status(500).entity("Error at server side ").build();
+			return Response.status(500).entity("Error at server side").build();
 		}
 	}
 }
