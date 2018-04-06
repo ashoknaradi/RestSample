@@ -9,7 +9,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.rest.pojo.Track;
+import com.rest.daos.IntTrackDao;
+import com.rest.daos.TrackDao;
+import com.rest.pojos.Track;
 
 @Path("/restTrack")
 public class Track_JSONService {
@@ -37,7 +39,7 @@ public class Track_JSONService {
 		}
 	}
 
-	@POST
+	/*@POST
 	@Path("/registerTrack")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -54,6 +56,29 @@ public class Track_JSONService {
 			return Response.status(200).entity(track).build();
 		} catch (Exception e) {
 			System.out.println("Test Connection failed");
+			return Response.status(500).entity("Error at server side ").build();
+		}
+	}*/
+	
+	@POST
+	@Path("/registerTrack")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response registerTrackForAlbum(Track track) {
+		try {
+			if (track.getTrackTitle() != null && track.getTrackSinger() != null && track.getTrackAlbum() != null) {
+				track.setTrackStatus("Registered");
+				System.out.println("Track Status is ::: " + track.getTrackStatus());
+				// Database hit to update table.
+			} else { 
+				System.out.println("Track is not registered!.... ");
+			}
+			// Dao object.. save track object into Database.
+			IntTrackDao itd = new TrackDao();
+			itd.registerTrackForAlbum(track);
+			return Response.status(200).entity(track).build();
+		} catch (Exception e) {
+			System.out.println("Track registration failed");
 			return Response.status(500).entity("Error at server side ").build();
 		}
 	}

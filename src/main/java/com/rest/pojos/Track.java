@@ -1,7 +1,13 @@
-package com.rest.pojo;
+package com.rest.pojos;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Track {
 	private String trackAlbum;
+	@Id
 	private String trackTitle;
 	private String trackSinger;
 	private String trackStatus = "Not Registered";
